@@ -1,0 +1,52 @@
+import random
+import matplotlib.pyplot as pl
+import numpy as np
+events = 10000000
+coin_rate=.03
+pulses = events*coin_rate
+counter=0
+
+prompt_array=[]
+early_array=[]
+delayed_array=[]
+inelastic_array=[]
+elastic_array=[]
+total_array=[]
+
+
+
+
+
+while counter< pulses:
+    counter+=1
+    x=random.random()
+    if x <=.94:
+        y=random.random()
+        if y <= .97:
+            time=random.gauss(0,2)
+            prompt_array.append(time)
+        elif y >.97 and y <=.98:
+            time= random.gauss(6,1)
+            delayed_array.append(time)
+        else:
+            time=random.gauss(-6,1)
+            early_array.append(time)
+    elif x>.94 and x<=.97:
+        time=random.randrange(10,45,1)
+        inelastic_array.append(time)
+    else:
+        time=random.gauss(50,3)
+        elastic_array.append(time)
+    total_array.append(time)
+pl.figure(1)
+pl.hist(prompt_array,log=True)
+pl.hist(early_array,log=True)
+pl.hist(delayed_array,log=True)
+pl.hist(inelastic_array,log=True)
+pl.hist(elastic_array,log=True)
+pl.xlim(-50,150)
+
+pl.figure(2)
+pl.hist(total_array,log=True,bins=75)
+pl.xlim(-25,75)
+pl.show()
