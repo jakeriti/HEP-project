@@ -1,0 +1,121 @@
+import numpy as np
+from matplotlib.pyplot import *
+from numpy.random import normal
+import matplotlib.pyplot as pl
+
+number_of_events=1000000
+x=0
+zero_perc=.0
+sing_perc=zero_perc+.97
+doub_perc=sing_perc+.02
+trip_perc=doub_perc+.01
+quad_perc=trip_perc+0
+efficiency=.25
+q_array=[]
+q_zero_array=[]
+q_sing_array=[]
+q_doub_array=[]
+q_trip_array=[]
+q_quad_array=[]
+
+for i in range(0,number_of_events):
+    x=np.random.random()
+    q=0
+    prob=0
+    Iphoton=0
+    if x <= zero_perc:
+        q=np.random.normal(0,.1)
+        q_zero_array.append(q)
+        q_array.append(q)
+    elif zero_perc>x<=sing_perc:
+        prob=np.random.random()
+        if prob <=efficiency:
+            q=np.random.normal(1.6,.6)
+            q_sing_array.append(q)
+            q_array.append(q)
+        else:
+            q=np.random.normal(0,.1)
+            q_zero_array.append(q)
+            q_array.append(q)
+    elif sing_perc>x<= doub_perc:
+        for i in range(0,2):
+            prob=np.random.random()
+            if prob <=efficiency:
+                Iphoton+=1
+        if Iphoton <= 0:
+            q=np.random.normal(0,.1)
+            q_zero_array.append(q)
+            q_array.append(q)
+        elif Iphoton <= 1:
+            q=np.random.normal(1.6,.6)
+            q_sing_array.append(q)
+            q_array.append(q)
+        elif Iphoton<=2:
+            q=np.random.normal(3.2,.6)
+            q_doub_array.append(q)
+            q_array.append(q)
+    elif doub_perc> x<=trip_perc:
+        for i in range (0,3):
+            prob=np.random.random()
+            if prob<= efficiency:
+                Iphoton+=1
+        if Iphoton <= 0:
+            q=np.random.normal(0,.1)
+            q_zero_array.append(q)
+            q_array.append(q)
+        elif Iphoton <= 1:
+            q=np.random.normal(1.6,.6)
+            q_sing_array.append(q)
+            q_array.append(q)
+        elif Iphoton<=2:
+            q=np.random.normal(3.2,.6)
+            q_doub_array.append(q)
+            q_array.append(q)
+        elif Iphoton <= 3:
+            q=np.random.normal(4.8,.6)
+            q_trip_array.append(q)
+            q_array.append(q)
+    elif trip_perc>x<=quad_perc:
+        for i in range (0,4):
+            prob=np.random.random()
+            if prob<= efficiency:
+                Iphoton+=1
+        if Iphoton <= 0:
+            q=np.random.normal(0,.1)
+            q_zero_array.append(q)
+            q_array.append(q)
+        elif Iphoton <= 1:
+            q=np.random.normal(1.6,.6)
+            q_sing_array.append(q)
+            q_array.append(q)
+        elif Iphoton<=2:
+            q=np.random.normal(3.2,.6)
+            q_doub_array.append(q)
+            q_array.append(q)
+        elif Iphoton <= 3:
+            q=np.random.normal(4.8,.6)
+            q_trip_array.append(q)
+            q_array.append(q)
+        elif Iphoton <=4:
+            q=np.random.normal(6.4,.6)
+            q_quad_array.append(q)
+            q_array.append(q)
+pl.figure(1)
+pl.title('z=0,s=0,d=0,t=100,q=0')
+pl.hist(q_sing_array, bins=(50),histtype='step',normed=False,color='m')
+pl.hist(q_doub_array, bins=(50),histtype='step',normed=False,color='k')
+pl.hist(q_trip_array, bins=(50),histtype='step',normed=False,color='g')
+pl.hist(q_quad_array, bins=(50),histtype='step',normed=False,color='b')
+pl.hist(q_zero_array, bins=(50),histtype='step',normed=False,color='r')
+pl.yscale('log', nonposy='clip')
+pl.figure(2)
+pl.title('z=0,s=0,d=0,t=100,q=0')
+pl.hist(q_array, bins=(200),histtype='step',normed=False,)
+pl.yscale('log', nonposy='clip')
+pl.show()
+
+
+
+
+
+                        
